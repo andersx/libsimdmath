@@ -32,6 +32,7 @@
 
 #include <immintrin.h>
 
+#include "libsimdrcp.h"
 
 // Approximation for EXP(x) -- Taylor expansion to order 6
 static inline __m256 _mm256_exptaylor6_ps(const __m256 &q) {
@@ -40,7 +41,7 @@ static inline __m256 _mm256_exptaylor6_ps(const __m256 &q) {
     const __m256 ONE = _mm256_set1_ps(1.0f);
     const __m256 ONE_OVER_64 = _mm256_set1_ps(0.0156250f);
 
-    p = INVLOG_2 * q;
+    __m256 p = _mm256_mul_ps(INVLOG_2, q);
     p = _mm256_fmadd_ps(p, ONE_OVER_64, ONE);
 
     p = _mm256_mul_ps(p, p);
@@ -60,7 +61,7 @@ static inline __m256 _mm256_exptaylor8_ps(const __m256 &q) {
     const __m256 ONE = _mm256_set1_ps(1.0f);
     const __m256 ONE_OVER_256 = _mm256_set1_ps(0.00390625f);
 
-    p = INVLOG_2 * q;
+    __m256 p = _mm256_mul_ps(INVLOG_2, q);
     p = _mm256_fmadd_ps(p, ONE_OVER_256, ONE);
 
     p = _mm256_mul_ps(p, p);
