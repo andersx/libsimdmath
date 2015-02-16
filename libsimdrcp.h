@@ -27,13 +27,14 @@
 // 
 // For more information, please refer to <http://unlicense.org>
 
+
 #ifndef LIB_SIMD_DIV
 #define LIB_SIMD_DIV
 
 #include <immintrin.h>
 
 
-// Approximation for 1/x -- Newtons method to 1st order
+// Approximation for 1/x -- Newtons method to 1st order.
 // using an AVX2-intrinsic function as initial guess.
 // Speed inbetween _mm256_rcp_ps(x) and _mm256_div_ps(ONE, x).
 // Practically same accuracy as _mm256_div_ps(ONE, x).
@@ -49,8 +50,9 @@ static inline __m256 _mm256_rcp1s_ps(const __m256 &q) {
 
 }
 
-// Approximation for 1/x -- Newtons method to 0th order
-// Same speed as _mm256_rcp_ps(), but not as accurate
+
+// Approximation for 1/x -- Newtons method to 0th order.
+// Same speed as _mm256_rcp_ps(), but not as accurate.
 static inline __m256 _mm256_rcp0_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -65,25 +67,16 @@ static inline __m256 _mm256_rcp0_ps(const __m256 &q) {
 }
 
 
-// Approximation for 1/x -- Newtons method to 1th order
-// Slightly slower than _mm256_rcp_ps(), but not as accurate
+// Approximation for 1/x -- Newtons method to 1th order.
+// Slightly slower than _mm256_rcp_ps(), but not as accurate.
 static inline __m256 _mm256_rcp1_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
     const __m256i MAGIC_NUMBER = _mm256_set1_epi32(0x7EF311C3);
 
-    float temp[8];
-
-    _mm256_store_ps(temp, q);
-//    std::cout << "a: " << temp[1] << std::endl;
-
     __m256i x = _mm256_castps_si256(q);
     x = _mm256_sub_epi32(MAGIC_NUMBER, x);
     __m256 rcp = _mm256_castsi256_ps(x);
-
-    _mm256_store_ps(temp, rcp);
-//    std::cout << "b: " << temp[1] << std::endl;
-
 
     rcp = _mm256_mul_ps(rcp, _mm256_fnmadd_ps(rcp, q, TWO));
 
@@ -93,8 +86,8 @@ static inline __m256 _mm256_rcp1_ps(const __m256 &q) {
 
 
 // Approximation for 1/x -- Newtons method to 2nd order
-// Slightly faster than as _mm256_div_ps(ONE, x), but not as accurate
-// More accurate than _mm256_rcp_ps()
+// Slightly faster than as _mm256_div_ps(ONE, x), but not as accurate.
+// More accurate than _mm256_rcp_ps().
 static inline __m256 _mm256_rcp2_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -112,8 +105,8 @@ static inline __m256 _mm256_rcp2_ps(const __m256 &q) {
 }
 
 
-// Approximation for 1/x -- Newtons method to 3rd order
-// Slower than _mm256_div_ps(ONE, x), and just as accurate
+// Approximation for 1/x -- Newtons method to 3rd order.
+// Slower than _mm256_div_ps(ONE, x), and just as accurate.
 static inline __m256 _mm256_rcp3_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -132,8 +125,8 @@ static inline __m256 _mm256_rcp3_ps(const __m256 &q) {
 }
 
 
-// Approximation for 1/x -- Newtons method to 4th order
-// Much slower than _mm256_div_ps(ONE, x), and just as accurate
+// Approximation for 1/x -- Newtons method to 4th order.
+// Much slower than _mm256_div_ps(ONE, x), and just as accurate.
 static inline __m256 _mm256_rcp4_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
