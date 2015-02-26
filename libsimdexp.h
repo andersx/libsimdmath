@@ -31,6 +31,7 @@
 #define LIB_SIMD_EXP
 
 #include <immintrin.h>
+#include <math.h>
 #include "libsimdrcp.h"
 
 
