@@ -37,4 +37,4 @@ Only valid for -126 < x < 0.0.  Calculates exp(x) bit shifting techniques and th
 
 Prints a __m256 vector to std. out.
 
-    __m256 _mm256_print_ps(const __m256 &q)
+    void _mm256_print_ps(const __m256 &q)
