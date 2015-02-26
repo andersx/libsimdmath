@@ -32,6 +32,7 @@
 
 #include "libsimdexp.h"
 #include "libsimdrcp.h"
+#include "libsimdrsqrt.h"
 #include "libsimdtools.h"
 
 #endif

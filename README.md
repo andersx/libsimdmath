@@ -23,18 +23,23 @@ To compile with icpc, use e.g.
 Currently supported functions:
 ----------
 
-Calculates 1/x, using one Newton-Raphson iterations on the start guess from the approximate AVX intrinsic _mm256_rcp_ps 
+Calculates 1/x, using one Newton-Raphson iterations on the start guess from the approximate AVX intrinsic _mm256_rcp_ps. Accurate to 32-bit precision, but faster than `_m256_div_ps(ONE, q)`.
 
     #include "libsimdrcp.h"
     __m256 _mm256_rcp1s_ps(const __m256 &q)
-    
+
+Calculates 1/sqrt(x), using one Newton-Raphson iterations on the start guess from the approximate AVX intrinsic _mm256_rsqrt_ps. Accurate to 32-bit precision, but faster than `_m256_div_ps(ONE, _mm256_sqrt_ps(q))`.
+
+    #include "libsimdrcp.h"
+    __m256 _mm256_rcp1s_ps(const __m256 &q)
+
 Calculates exp(x) using a bit shifting technique. Extremely fast, but has an error of about 10%.
 
     #include "libsimdexp.h"
     __m256 _mm256_expfaster_ps(const __m256 &q)
-    
+
 Only valid for -126 < x < 0.0.  Calculates exp(x) bit shifting techniques and the Newton-Raphson approximation. Not very fast, but has an error of about 0.0001% or 0.001%, depending on which approximation is used for the reciprocal 1/x. If high accuracy is desired, use _mm256_rcp1s_ps() instead of _mm256_rcp_ps().
-    
+
     #include "libsimdexp.h"
     __m256 _mm256_expfastsmallneg_ps(const __m256 &q)
 
