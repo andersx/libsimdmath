@@ -27,6 +27,9 @@
 // For more information, please refer to <http://unlicense.org>
 
 
+#ifndef LIB_SIMD_TEST_RCP_H
+#define LIB_SIMD_TEST_RCP_H
+
 #include <iostream>
 
 #include "../include/libsimdrcp.h"
@@ -67,4 +70,4 @@ static int test_mm256_rcp_ps() {
 
 }
 
-
+#endif

@@ -27,6 +27,9 @@
 // For more information, please refer to <http://unlicense.org>
 
 
+#ifndef LIB_SIMD_TEST_EXP_H
+#define LIB_SIMD_TEST_EXP_H
+
 #include <iostream>
 
 #include "../include/libsimdexp.h"
@@ -77,3 +80,5 @@ static int test_mm256_expfast1s_ps() {
     return compare_results(input, approx, exact, accuracy);
 
 }
+
+#endif

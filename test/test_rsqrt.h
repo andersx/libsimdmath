@@ -27,6 +27,9 @@
 // For more information, please refer to <http://unlicense.org>
 
 
+#ifndef LIB_SIMD_TEST_RSQRT_H
+#define LIB_SIMD_TEST_RSQRT_H
+
 #include <iostream>
 
 #include "../include/libsimdrsqrt.h"
@@ -67,3 +70,5 @@ static int test_mm256_rsqrt1s_ps() {
     return compare_results(input, approx, exact, accuracy);
 
 }
+
+#endif
