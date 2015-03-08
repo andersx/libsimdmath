@@ -135,7 +135,7 @@ static inline __m256 _mm256_expfaster_ps(const __m256 &q) {
 
 // Approximation for EXP(x), only valid for -126.0f < x < 0.0f.
 // Error is about 0.05%
-static inline __m256 _mm256_expfastnegsmall_ps(const __m256 &q) {
+static inline __m256 _mm256_expfast_ps(const __m256 &q) {
 
     const __m256 INVLOG_2 = _mm256_set1_ps(1.442695040f);
     const __m256 BIT_SHIFT = _mm256_set1_ps(8388608);
@@ -159,7 +159,7 @@ static inline __m256 _mm256_expfastnegsmall_ps(const __m256 &q) {
 
 // Approximation for EXP(x), only valid for -126.0f < x < 0.0f.
 // Error is about 0.001%
-static inline __m256 _mm256_expfastnegsmall1s_ps(const __m256 &q) {
+static inline __m256 _mm256_expfast1s_ps(const __m256 &q) {
 
     const __m256 INVLOG_2 = _mm256_set1_ps(1.442695040f);
     const __m256 BIT_SHIFT = _mm256_set1_ps(8388608);

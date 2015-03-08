@@ -29,42 +29,41 @@
 
 #include <iostream>
 
-#include "../include/libsimdrcp.h"
+#include "../include/libsimdrsqrt.h"
 #include "../include/libsimdtools.h"
 #include "test_common.h"
 
 
-static int test_mm256_rcp1s_ps() {
+static int test_mm256_rsqrt_ps() {
+
+    const __m256 ONE = _mm256_set1_ps(1.0f);
+
+    const float accuracy = 0.03f;
+
+    __m256 input = generate_vector(0.0f, 10000.0f);
+
+    __m256 exact = _mm256_div_ps(ONE, _mm256_sqrt_ps(input));
+    __m256 approx = _mm256_rsqrt_ps(input);
+
+    std::cout << "Testing: _mm256_rsqrt_ps()      0.0 < x 10000.0" << std::endl;
+    return compare_results(input, approx, exact, accuracy);
+
+}
+
+
+
+static int test_mm256_rsqrt1s_ps() {
 
     const __m256 ONE = _mm256_set1_ps(1.0f);
 
     const float accuracy = 0.00002f;
 
-    __m256 input = generate_vector(-10000.0f, 10000.0f);
+    __m256 input = generate_vector(0.0f, 10000.0f);
 
-    __m256 exact = _mm256_div_ps(ONE, input);
-    __m256 approx = _mm256_rcp1s_ps(input);
+    __m256 exact = _mm256_div_ps(ONE, _mm256_sqrt_ps(input));
+    __m256 approx = _mm256_rsqrt1s_ps(input);
 
-    std::cout << "Testing: _mm256_rcp1s_ps()      -10000.0 < x 10000.0" << std::endl;
+    std::cout << "Testing: _mm256_rsqrt1s_ps()      0.0 < x 10000.0" << std::endl;
     return compare_results(input, approx, exact, accuracy);
 
 }
-
-
-static int test_mm256_rcp_ps() {
-
-    const __m256 ONE = _mm256_set1_ps(1.0f);
-
-    const float accuracy = 0.04f;
-
-    __m256 input = generate_vector(-10000.0f, 10000.0f);
-
-    __m256 exact = _mm256_div_ps(ONE, input);
-    __m256 approx = _mm256_rcp_ps(input);
-
-    std::cout << "Testing: _mm256_rcp_ps()      -10000.0 < x 10000.0" << std::endl;
-    return compare_results(input, approx, exact, accuracy);
-
-}
-
-

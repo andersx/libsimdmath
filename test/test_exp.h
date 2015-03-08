@@ -43,37 +43,37 @@ static int test_mm256_expfaster_ps() {
     __m256 approx = _mm256_expfaster_ps(input);
     __m256 exact = _mm256_exp_ps(input);
 
-    std::cout << "Testing: _mm256_expfaster_ps()" << std::endl;
+    std::cout << "Testing: _mm256_expfaster_ps()     -63.0f < x < 63.0" << std::endl;
     return compare_results(input, approx, exact, accuracy);
 
 }
 
 
-static int test_mm256_expfastnegsmall_ps() {
+static int test_mm256_expfast_ps() {
 
     const float accuracy = 0.2;
 
     __m256 input = generate_vector(-63.0f, 63.0f);
 
-    __m256 approx = _mm256_expfastnegsmall_ps(input);
+    __m256 approx = _mm256_expfast_ps(input);
     __m256 exact = _mm256_exp_ps(input);
 
-    std::cout << "Testing: _mm256_expfastnegsmall_ps()" << std::endl;
+    std::cout << "Testing: _mm256_expfastnegsmall_ps()     -63.0f < x < 63.0" << std::endl;
     return compare_results(input, approx, exact, accuracy);
 
 }
 
 
-static int test_mm256_expfastnegsmall1s_ps() {
+static int test_mm256_expfast1s_ps() {
 
     const float accuracy = 0.005f;
 
     __m256 input = generate_vector(-63.0f, 63.0f);
 
-    __m256 approx = _mm256_expfastnegsmall1s_ps(input);
+    __m256 approx = _mm256_expfast1s_ps(input);
     __m256 exact = _mm256_exp_ps(input);
 
-    std::cout << "Testing: _mm256_expfastnegsmall1s_ps()" << std::endl;
+    std::cout << "Testing: _mm256_expfastnegsmall1s_ps()     -63.0f < x < 63.0" << std::endl;
     return compare_results(input, approx, exact, accuracy);
 
 }

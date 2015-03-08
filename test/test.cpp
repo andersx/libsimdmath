@@ -31,6 +31,7 @@
 
 #include "test_rcp.h"
 #include "test_exp.h"
+#include "test_rsqrt.h"
 
 
 int main() {
@@ -42,8 +43,10 @@ int main() {
     failed_tests += test_mm256_rcp_ps();
     failed_tests += test_mm256_rcp1s_ps();
     failed_tests += test_mm256_expfaster_ps();
-    failed_tests += test_mm256_expfastnegsmall_ps();
-    failed_tests += test_mm256_expfastnegsmall1s_ps();
+    failed_tests += test_mm256_expfast_ps();
+    failed_tests += test_mm256_expfast1s_ps();
+    failed_tests += test_mm256_rsqrt_ps();
+    failed_tests += test_mm256_rsqrt1s_ps();
 
     std::cout << "Number of failed tests: " << failed_tests << std::endl;
 
