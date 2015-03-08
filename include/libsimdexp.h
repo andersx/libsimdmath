@@ -122,9 +122,8 @@ static inline __m256 _mm256_exptaylor8_ps(const __m256 &q) {
 }
 
 
-
-
 // Approximation for EXP(x) -- very fast, but not super accurate
+// Error is about 
 static inline __m256 _mm256_expfaster_ps(const __m256 &q) {
 
     const __m256 C1 = _mm256_set1_ps(1064872507.1541044f);
@@ -135,6 +134,7 @@ static inline __m256 _mm256_expfaster_ps(const __m256 &q) {
 
 
 // Approximation for EXP(x), only valid for -126.0f < x < 0.0f.
+// Error is about 0.05%
 static inline __m256 _mm256_expfastnegsmall_ps(const __m256 &q) {
 
     const __m256 INVLOG_2 = _mm256_set1_ps(1.442695040f);
@@ -149,6 +149,30 @@ static inline __m256 _mm256_expfastnegsmall_ps(const __m256 &q) {
     const __m256 z = _mm256_sub_ps(p, _mm256_floor_ps(p));
 
     __m256 rcp = _mm256_rcp_ps(_mm256_sub_ps(C3, z));
+    rcp = _mm256_fmadd_ps(rcp, C2, _mm256_add_ps(C1, p));
+    rcp = _mm256_fnmadd_ps(C4, z, rcp);
+
+    return _mm256_castsi256_ps(_mm256_cvttps_epi32(_mm256_mul_ps(BIT_SHIFT, rcp)));
+
+}
+
+
+// Approximation for EXP(x), only valid for -126.0f < x < 0.0f.
+// Error is about 0.001%
+static inline __m256 _mm256_expfastnegsmall1s_ps(const __m256 &q) {
+
+    const __m256 INVLOG_2 = _mm256_set1_ps(1.442695040f);
+    const __m256 BIT_SHIFT = _mm256_set1_ps(8388608);
+
+    const __m256 C1 = _mm256_set1_ps(121.2740838f);
+    const __m256 C2 = _mm256_set1_ps(27.7280233f);
+    const __m256 C3 = _mm256_set1_ps(4.84252568f);
+    const __m256 C4 = _mm256_set1_ps(1.49012907f);
+
+    const __m256 p = _mm256_mul_ps(INVLOG_2, q);
+    const __m256 z = _mm256_sub_ps(p, _mm256_floor_ps(p));
+
+    __m256 rcp = _mm256_rcp1s_ps(_mm256_sub_ps(C3, z));
     rcp = _mm256_fmadd_ps(rcp, C2, _mm256_add_ps(C1, p));
     rcp = _mm256_fnmadd_ps(C4, z, rcp);
 

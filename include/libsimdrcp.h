@@ -39,6 +39,8 @@
 // Speed inbetween _mm256_rcp_ps(x) and _mm256_div_ps(ONE, x).
 // Practically same accuracy as _mm256_div_ps(ONE, x).
 // Probably the only useful function in this header.
+// Error of _mm256_rcp1s_ps is 0.00001%.
+// In comparison Error of intrinsic _mm256_rcp_ps is 0.02%.
 static inline __m256 _mm256_rcp1s_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -53,6 +55,7 @@ static inline __m256 _mm256_rcp1s_ps(const __m256 &q) {
 
 // Approximation for 1/x -- Newtons method to 0th order.
 // Same speed as _mm256_rcp_ps(), but not as accurate.
+// Error of _mm256_rcp0_ps is about 3%.
 static inline __m256 _mm256_rcp0_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -69,6 +72,7 @@ static inline __m256 _mm256_rcp0_ps(const __m256 &q) {
 
 // Approximation for 1/x -- Newtons method to 1th order.
 // Slightly slower than _mm256_rcp_ps(), but not as accurate.
+// Error of _mm256_rcp1_ps is about 0.2%.
 static inline __m256 _mm256_rcp1_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -88,6 +92,7 @@ static inline __m256 _mm256_rcp1_ps(const __m256 &q) {
 // Approximation for 1/x -- Newtons method to 2nd order
 // Slightly faster than as _mm256_div_ps(ONE, x), but not as accurate.
 // More accurate than _mm256_rcp_ps().
+// Error of _mm256_rcp2_ps is about 0.001%.
 static inline __m256 _mm256_rcp2_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -107,6 +112,7 @@ static inline __m256 _mm256_rcp2_ps(const __m256 &q) {
 
 // Approximation for 1/x -- Newtons method to 3rd order.
 // Slower than _mm256_div_ps(ONE, x), and just as accurate.
+// Error of _mm256_rcp3_ps is about 0.00001%.
 static inline __m256 _mm256_rcp3_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);
@@ -127,6 +133,7 @@ static inline __m256 _mm256_rcp3_ps(const __m256 &q) {
 
 // Approximation for 1/x -- Newtons method to 4th order.
 // Much slower than _mm256_div_ps(ONE, x), and just as accurate.
+// Error of _mm256_rcp4_ps is about 0.00001%.
 static inline __m256 _mm256_rcp4_ps(const __m256 &q) {
 
     const __m256 TWO = _mm256_set1_ps(2.0f);

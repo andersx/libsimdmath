@@ -1,4 +1,3 @@
-// libsimdtools -- Tools for vector math - SSE and AVX.
 // Copyright (C) 2015 Anders S. Christensen
 // Report bugs, etc at: https://github.com/andersx/simd-exp
 //
@@ -28,25 +27,29 @@
 // For more information, please refer to <http://unlicense.org>
 
 
-#ifndef LIB_SIMD_TOOLS
-#define LIB_SIMD_TOOLS
+#include <iostream>
 
-#include <stdio.h>
-#include <immintrin.h>
+#include "test_rcp.h"
+#include "test_exp.h"
 
 
-// Function to print a __m256 vector.
-static inline void _mm256_print_ps(const __m256 &q) {
+int main() {
 
-    float temp[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    _mm256_store_ps(temp, q);
+    srand(time(NULL));
 
-    printf("0: %14.10f  1: %14.10f  2: %14.10f  3 : %14.10f\n",
-            temp[0], temp[1], temp[2], temp[3]);
+    int failed_tests = 0;
 
-    printf("4: %14.10f  5: %14.10f 6: %14.10f 7: %14.10f\n",
-            temp[4], temp[5], temp[6], temp[7]);
+    failed_tests += test_mm256_rcp_ps();
+    failed_tests += test_mm256_rcp1s_ps();
+    failed_tests += test_mm256_expfaster_ps();
+    failed_tests += test_mm256_expfastnegsmall_ps();
+    failed_tests += test_mm256_expfastnegsmall1s_ps();
+
+    std::cout << "Number of failed tests: " << failed_tests << std::endl;
+
+    return 0;
 
 }
 
-#endif
+
+
