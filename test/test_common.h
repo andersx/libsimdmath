@@ -33,6 +33,9 @@
 #include <stdlib.h>
 #include <cstdlib>
 
+// Lowest guaranteed accuracy of a float in %.
+const float FLOAT_ACCURACY = 0.00002f;
+
 
 float rand_float(float min, float max) {
 
@@ -85,4 +88,4 @@ static float compare_results(__m256 input, __m256 approx,
 
 
 
-#endif
+#endif // LIB_SIMD_TEST_COMMON_H
