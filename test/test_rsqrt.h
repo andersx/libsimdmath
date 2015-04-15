@@ -29,8 +29,8 @@
 
 #include <iostream>
 
-#include "../include/libsimdrsqrt.h"
-#include "../include/libsimdtools.h"
+#include "../include/simdrsqrt.h"
+#include "../include/simdtools.h"
 #include "test_common.h"
 
 

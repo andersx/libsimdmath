@@ -32,12 +32,12 @@
 
 #include <iostream>
 
-#include "../include/libsimdexp.h"
-#include "../include/libsimdtools.h"
+#include "../include/simdexp.h"
+#include "../include/simdtools.h"
 #include "test_common.h"
 
 
-static int test_mm256_expfaster_ps() {
+int test_mm256_expfaster_ps() {
 
     const float accuracy = 4.0f;
 
@@ -52,7 +52,7 @@ static int test_mm256_expfaster_ps() {
 }
 
 
-static int test_mm256_expfast_ps() {
+int test_mm256_expfast_ps() {
 
     const float accuracy = 0.2;
 
@@ -67,7 +67,7 @@ static int test_mm256_expfast_ps() {
 }
 
 
-static int test_mm256_expfast1s_ps() {
+int test_mm256_expfast1s_ps() {
 
     const float accuracy = 0.005f;
 
@@ -80,5 +80,6 @@ static int test_mm256_expfast1s_ps() {
     return compare_results(input, approx, exact, accuracy);
 
 }
+
 
 #endif

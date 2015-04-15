@@ -33,10 +33,16 @@
 #include <stdlib.h>
 #include <cstdlib>
 
+#include "../include/simdtools.h"
+
+
+using namespace simdmath;
+
 // Lowest guaranteed accuracy of a float in %.
 const float FLOAT_ACCURACY = 0.00002f;
 
 
+// Return a random float in a given range.
 float rand_float(float min, float max) {
 
     return ((max-min)*((float)rand()/RAND_MAX))+min;
@@ -44,6 +50,7 @@ float rand_float(float min, float max) {
 }
 
 
+// Return a SIMD-vector of random floats in a given range.
 __m256 generate_vector(float min, float max) {
 
      return _mm256_set_ps(rand_float(min, max), rand_float(min, max),
@@ -54,18 +61,25 @@ __m256 generate_vector(float min, float max) {
 }    
 
 
-static float compare_results(__m256 input, __m256 approx, 
-                             __m256 exact, float accuracy) {
+// Run a test case, given the input vector, the approximate and
+// exact results for a function and a given target accuracy [%].
+float compare_results(__m256 input, __m256 approx, 
+                      __m256 exact, float accuracy) {
 
-    __m256 error = _mm256_mul_ps(_mm256_set1_ps(100.0f), _mm256_div_ps(approx, exact));
+    // Calculate error in %.
+    __m256 error = _mm256_mul_ps(_mm256_set1_ps(100.0f),
+                   _mm256_div_ps(approx, exact));
 
 
+    // Print input-vector.
     std::cout << "Random input:" << std::endl; 
     _mm256_print_ps(input);
 
+    // Print error.
     std::cout << "Ratio deviation[%]:      Allowed error = " << accuracy << std::endl;
     _mm256_print_ps(error);
 
+    // Determine if error is withing target accuracy.
     if ((_mm256_maxelement_ps(error) > 100.0f + accuracy) ||
         (_mm256_minelement_ps(error) < 100.0f - accuracy)) {
 
@@ -84,8 +98,6 @@ static float compare_results(__m256 input, __m256 approx,
     }
 
 }
-
-
 
 
 #endif // LIB_SIMD_TEST_COMMON_H

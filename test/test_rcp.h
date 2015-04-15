@@ -29,8 +29,8 @@
 
 #include <iostream>
 
-#include "../include/libsimdrcp.h"
-#include "../include/libsimdtools.h"
+#include "../include/simdrcp.h"
+#include "../include/simdtools.h"
 #include "test_common.h"
 
 
